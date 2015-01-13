@@ -2,16 +2,25 @@
 
 lua_State* CahLua::L = nullptr;
 
-bool CahLua::init()
+bool CahLua::open()
 {
+	if (CahLua::L){
+		return false;
+	}
 	CahLua::L = luaL_newstate();
 	if (CahLua::L){
 
 		CahLua::MetaPointer::initialize(CahLua::L);
 		return true;
 	}
-	else {
-		return false;
+	return false;
+}
+
+void CahLua::close()
+{
+	if (CahLua::L)
+	{
+		lua_close(CahLua::L);
 	}
 }
 
@@ -33,6 +42,8 @@ const char* CahLua::checkstring(int index){
 
 void CahLua::pushusertype(void* udata, const char* tname){
 	lua_pushlightuserdata(L, udata);
+	luaL_getmetatable(L, CahLua_MetaPointer);
+	lua_setmetatable(L, -2);
 }
 
 void* CahLua::checkusertype(int index, const char* tname){

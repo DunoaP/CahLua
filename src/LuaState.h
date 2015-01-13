@@ -1,5 +1,5 @@
-#ifndef LuaState_h
-#define LuaState_h
+#ifndef CahLuaState_h
+#define CahLuaState_h
 
 #include <lua.hpp>
 #include "LuaMetaPointer.h"
@@ -7,7 +7,9 @@
 namespace CahLua{
 	extern lua_State* L;
 
-	bool init();
+	bool open();
+	void close();
+
 	void pushnumber(double);
 	double checknumber(int);
 	void pushstring(const char*);
