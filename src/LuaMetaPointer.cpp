@@ -1,4 +1,4 @@
-#include "LuaMetaPointer.h"
+#include <LuaMetaPointer.h>
 
 //-----------------------------------------------------------------------------
 #define lua_checkmpointer(L)    (MetaPointer*)luaL_checkudata(L, 1, CahLua_MetaPointer)
