@@ -1,18 +1,21 @@
 #include <cahlua/CahLua.hpp>
 
-
+#include "foo.h"
 
 
 
 int main(){
-	bool b = CahLua::open();
+	int b = CahLua::open();
 
-	if (b){
+	Foo f(CahLua::L);
+	f.testString = "hello world";
+	f.testNumber = 123;
+	f.testBool = true;
+	f.setGlobal("foo");
 
-		return 1;
+	if (luaL_loadfile(CahLua::L, "basic_usage.lua") || lua_pcall(CahLua::L, 0, 0, 0))
+	{
 	}
-
-
 
 	CahLua::close();
 

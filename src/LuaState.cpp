@@ -9,8 +9,8 @@ bool CahLua::open()
 	}
 	CahLua::L = luaL_newstate();
 	if (CahLua::L){
-
-		CahLua::MetaPointer::initialize(CahLua::L);
+		luaopen_base(CahLua::L);
+		//CahLua::MetaPointer::initialize(CahLua::L);
 		return true;
 	}
 	return false;
@@ -30,6 +30,14 @@ void CahLua::pushnumber(double v){
 
 double CahLua::checknumber(int index){
 	return luaL_checknumber(L, index);
+}
+
+void CahLua::pushboolean(bool v){
+	lua_pushboolean(L, v);
+}
+
+double CahLua::checkboolean(int index){
+	return lua_toboolean(L, index);
 }
 
 void CahLua::pushstring(const char* s){

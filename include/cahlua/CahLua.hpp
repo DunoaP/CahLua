@@ -12,5 +12,7 @@
 #define CAHLUA_LUA_VERSION_MINOR 2
 #define CAHLUA_LUA_VERSION_REVISION 3
 
+#include "lua/lua.hpp"
+
 #include "LuaState.h"
 #include "LuaMetaPointer.h"
