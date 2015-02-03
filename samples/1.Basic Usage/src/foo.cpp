@@ -1,6 +1,6 @@
 #include "foo.h"
 
-Foo::Foo(lua_State* L) : CahLua::MetaPointer(L)
+Foo::Foo() : CahLua::MetaPointer()
 {
 
 }

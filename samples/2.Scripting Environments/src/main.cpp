@@ -10,7 +10,7 @@ int main(){
 	{
 		return b;
 	}
-	Foo f(CahLua::L);
+	Foo f;
 
 
 	CahLua::Script script(false, "class1.lua");

@@ -14,10 +14,10 @@ const luaL_Reg CahLua::MetaPointer::m_lfunctions[] =
 };
 //-----------------------------------------------------------------------------
 
-CahLua::MetaPointer::MetaPointer(lua_State* L) : m_name("")
+CahLua::MetaPointer::MetaPointer() : m_name("")
 {
 	//-- Make sure we have created the metatable
-	initialize(L);
+	initialize(CahLua::L);
 
 	//-- Add this pointer as of kind LUA_METAPOINTER metatable. This bit of code
 	//   might not be necessary here. (To be removed)
@@ -107,7 +107,6 @@ void CahLua::MetaPointer::setLocal(std::string envName, std::string n)
 		lua_pushlightuserdata(m_lua, this);
 		luaL_getmetatable(m_lua, CahLua_MetaPointer);
 		lua_setmetatable(m_lua, -2);
-		//lua_setglobal(L, m_name.c_str());
 		lua_getglobal(m_lua, envName.c_str());
 		if (!lua_istable(m_lua, 1))
 		{

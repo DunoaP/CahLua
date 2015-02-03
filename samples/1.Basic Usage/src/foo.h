@@ -5,7 +5,7 @@
 
 class Foo : public CahLua::MetaPointer{
 public:
-	Foo(lua_State* L);
+	Foo();
 	~Foo();
 
 	int get(lua_State* L);
@@ -13,6 +13,7 @@ public:
 
 
 	std::string testString;
+	bool testBool;
 	double testNumber;
 
 private:

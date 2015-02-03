@@ -14,6 +14,8 @@
 
 #include "lua/lua.hpp"
 
+#include "LuaBase.h"
 #include "LuaScript.h"
 #include "LuaState.h"
 #include "LuaMetaPointer.h"
+#include "LuaClass.h"

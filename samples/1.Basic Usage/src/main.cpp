@@ -7,7 +7,7 @@
 int main(){
 	int b = CahLua::open();
 
-	Foo f(CahLua::L);
+	Foo f;
 	f.testString = "hello world";
 	f.testNumber = 123;
 	f.testBool = true;

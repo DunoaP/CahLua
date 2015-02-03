@@ -1,6 +1,6 @@
 function Start()
 	print("Script 1:")
-	
+		
 	foo.string = "Hello World"
 	print("foo.teststring               = " .. foo.string)
 	foo.string = "Script number 1!"

@@ -4,6 +4,8 @@
 #define CahLua_MetaPointer     "cahlua.metapointer"    //-- Name given to the metatable for all lightuserdata (instances of LMetaPointer in C++)
 //-----------------------------------------------------------------------------s
 #include "lua/lua.hpp"
+#include "LuaState.h"
+
 #include <map>
 
 namespace CahLua 
@@ -11,7 +13,7 @@ namespace CahLua
 	class MetaPointer
 	{
 		public:
-			MetaPointer(lua_State* L);
+			MetaPointer();
 			virtual ~MetaPointer();
 
 			inline lua_State*  lua()    { return m_lua; }
