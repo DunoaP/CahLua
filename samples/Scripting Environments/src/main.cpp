@@ -10,18 +10,16 @@ int main(){
 	{
 		return b;
 	}
-	//Foo f(CahLua::L);
-	//f.testString = "hello world";
-	//f.testNumber = 123;
+	Foo f(CahLua::L);
 
 
 	CahLua::Script script(false, "class1.lua");
 
-	//f.setLocal(script.getBoundState(), "foo");
+	f.setLocal(script.getEnvName(), "foo");
 	script.execute();
 
-	//CahLua::Script script2(false, "class2.lua");
-	//script2.execute();	//We want to see an error here about foo being undefined
+	CahLua::Script script2(false, "class2.lua");
+	script2.execute();	//We want to see an error here about foo being undefined
 
 	CahLua::close();
 

@@ -21,6 +21,7 @@ namespace CahLua
 		int callFunc(std::string funcName);
 
 		int getError();
+		std::string getEnvName();
 
 	private:
 		static int uid;

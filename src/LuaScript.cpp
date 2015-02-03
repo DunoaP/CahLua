@@ -4,6 +4,7 @@ int CahLua::Script::uid = 0;
 
 CahLua::Script::Script(bool global, std::string filename)
 {
+	envName = "_G";
 	this->global = global;
 	error = 0;
 
@@ -96,4 +97,9 @@ void CahLua::Script::handleError()
 		printf(lua_tostring(CahLua::L, -1), "\n");
 	}
 	
+}
+
+std::string CahLua::Script::getEnvName()
+{
+	return envName;
 }

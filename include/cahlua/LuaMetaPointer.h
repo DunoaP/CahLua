@@ -19,7 +19,7 @@ namespace CahLua
 			inline size_t      size()   { return m_pointers.size(); }
 
 			void setGlobal(std::string n);      //-- Shall make this pointer globally accessible to LUA
-			void setLocal(lua_State* L, std::string n);      //-- Shall make this pointer globally accessible to LUA
+			void setLocal(std::string envName, std::string n);      //-- Shall make this pointer accessible to the environment name provided
 
 			virtual int get(lua_State* L) = 0;  //-- To be implemented by inherited classes
 			virtual int set(lua_State* L) = 0;  //-- To be implemented by inherited classes

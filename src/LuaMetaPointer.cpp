@@ -94,7 +94,7 @@ void CahLua::MetaPointer::setGlobal(std::string n)
 }
 //-----------------------------------------------------------------------------
 
-void CahLua::MetaPointer::setLocal(lua_State* L, std::string n)
+void CahLua::MetaPointer::setLocal(std::string envName, std::string n)
 {
 	//-- Make myself (this) a global variable in LUA with name given by 'n'
 	std::map<MetaPointer*, std::string>::iterator found = m_pointers.find(this);
@@ -104,10 +104,16 @@ void CahLua::MetaPointer::setLocal(lua_State* L, std::string n)
 		m_name = n;
 		found->second = m_name;
 
-		lua_pushlightuserdata(L, this);
-		luaL_getmetatable(L, CahLua_MetaPointer);
-		lua_setmetatable(L, -2);
-		lua_setglobal(L, m_name.c_str());
+		lua_pushlightuserdata(m_lua, this);
+		luaL_getmetatable(m_lua, CahLua_MetaPointer);
+		lua_setmetatable(m_lua, -2);
+		//lua_setglobal(L, m_name.c_str());
+		lua_getglobal(m_lua, envName.c_str());
+		if (!lua_istable(m_lua, 1))
+		{
+			return;
+		}
+		lua_setfield(m_lua, -1, n.c_str());
 	}
 }
 //-----------------------------------------------------------------------------
