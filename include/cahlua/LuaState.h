@@ -10,10 +10,11 @@ namespace CahLua{
 	bool open();
 	void close();
 
+	lua_State* newThread(lua_State* parentState = nullptr);
+	int resumeThread(lua_State* thread);
+
 	void pushnumber(double);
 	double checknumber(int);
-	void pushboolean(bool);
-	double checkboolean(int);
 	void pushstring(const char*);
 	const char* checkstring(int);
 	void pushusertype(void*, const char*);

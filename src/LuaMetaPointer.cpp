@@ -94,6 +94,24 @@ void CahLua::MetaPointer::setGlobal(std::string n)
 }
 //-----------------------------------------------------------------------------
 
+void CahLua::MetaPointer::setLocal(lua_State* L, std::string n)
+{
+	//-- Make myself (this) a global variable in LUA with name given by 'n'
+	std::map<MetaPointer*, std::string>::iterator found = m_pointers.find(this);
+
+	if (found != m_pointers.end())
+	{
+		m_name = n;
+		found->second = m_name;
+
+		lua_pushlightuserdata(L, this);
+		luaL_getmetatable(L, CahLua_MetaPointer);
+		lua_setmetatable(L, -2);
+		lua_setglobal(L, m_name.c_str());
+	}
+}
+//-----------------------------------------------------------------------------
+
 CahLua::MetaPointer* CahLua::MetaPointer::operator [](std::string n)
 {
 	//-- Simply for completeness, allow all metapointer access all other by their

@@ -15,6 +15,7 @@ int main(){
 
 	if (luaL_loadfile(CahLua::L, "basic_usage.lua") || lua_pcall(CahLua::L, 0, 0, 0))
 	{
+		lua_tostring(CahLua::L, -1);
 	}
 
 	CahLua::close();

@@ -10,7 +10,7 @@ bool CahLua::open()
 	CahLua::L = luaL_newstate();
 	if (CahLua::L){
 		luaopen_base(CahLua::L);
-		//CahLua::MetaPointer::initialize(CahLua::L);
+		CahLua::MetaPointer::initialize(CahLua::L);
 		return true;
 	}
 	return false;
@@ -24,20 +24,28 @@ void CahLua::close()
 	}
 }
 
+
+lua_State* CahLua::newThread(lua_State* parentState)
+{
+	if (!parentState)
+	{
+		return lua_newthread(L);
+	}
+	return lua_newthread(parentState);
+}
+
+
+int CahLua::resumeThread(lua_State* thread)
+{
+	return lua_resume(thread, NULL, 1);
+}
+
 void CahLua::pushnumber(double v){
 	lua_pushnumber(L, v);
 }
 
 double CahLua::checknumber(int index){
 	return luaL_checknumber(L, index);
-}
-
-void CahLua::pushboolean(bool v){
-	lua_pushboolean(L, v);
-}
-
-double CahLua::checkboolean(int index){
-	return lua_toboolean(L, index);
 }
 
 void CahLua::pushstring(const char* s){
