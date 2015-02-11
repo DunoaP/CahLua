@@ -19,8 +19,8 @@ CahLua::Script::Script(bool global, std::string filename)
 int CahLua::Script::load(std::string filename)
 {
 	FILE* fp;
-	fopen_s(&fp, filename.c_str(), "r");
-	if (!fp) {
+	if (0 != fopen_s(&fp, filename.c_str(), "r"))
+	{
 		return 11;
 	}
 
@@ -80,7 +80,15 @@ int CahLua::Script::execute()
 
 int CahLua::Script::callFunc(std::string funcName)
 {
-	lua_getfield(CahLua::L, -1, funcName.c_str());
+	if (!global)
+	{
+		lua_getglobal(CahLua::L, envName.c_str());
+		if (!lua_istable(CahLua::L, 1))
+		{
+			return 1;
+		}
+		lua_getfield(CahLua::L, -1, funcName.c_str());
+	}
 	return lua_pcall(CahLua::L, 0, 0, 0);
 }
 

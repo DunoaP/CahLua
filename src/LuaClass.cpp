@@ -46,14 +46,21 @@ void CahLua::LuaClass::bind()
 	auto it = funcList.begin();
 	while (it != funcList.end())
 	{
-		flist[i] = { (*it).first.c_str(), (lua_CFunction)(*it).second };
+		luaL_Reg r;
+		r.name = it->first.c_str();
+		r.func = static_cast<lua_CFunction>(it->second);
+		flist[i] = r;
+
 		++i;
 		++it;
 	}
 	for (i; i < 32; ++i)
 	{
-		flist[i] = { NULL, NULL };
-	}	
+		luaL_Reg r;
+		r.name = NULL;
+		r.func = NULL;
+		flist[i] = r;
+	}
 
 
 	lua_rawgeti(CahLua::L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);

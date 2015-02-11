@@ -125,11 +125,16 @@ CahLua::MetaPointer* CahLua::MetaPointer::operator [](std::string n)
 	//   made global. All other pointers have an empty name.
 	std::map<MetaPointer*, std::string>::iterator iter = m_pointers.begin();
 
+	int i = 1;
 	while (iter != m_pointers.end())
 	{
 		if (iter->second == n)
+		{
 			return iter->first;
-		++iter;
+		}
+
+		iter = std::next(m_pointers.begin(), i);
+		++i;
 	}
 
 	return NULL;
