@@ -18,29 +18,7 @@ int CahLua::resumeThread(lua_State* thread)
 	return lua_resume(thread, NULL, 1);
 }
 
-void CahLua::pushnumber(double v){
-	lua_pushnumber(L, v);
-}
-
-double CahLua::checknumber(int index){
-	return luaL_checknumber(L, index);
-}
-
-void CahLua::pushstring(const char* s){
-	lua_pushstring(L, s);
-}
-
-const char* CahLua::checkstring(int index){
-	return luaL_checkstring(L, index);
-}
-
-void CahLua::pushusertype(void* udata, const char* tname){
-	/*lua_pushlightuserdata(L, udata);
-	luaL_getmetatable(L, CahLua_MetaPointer);
-	lua_setmetatable(L, -2);*/
-}
-
-void* CahLua::checkusertype(int index, const char* tname){
-	void* udata = lua_touserdata(L, index);
-	return udata;
+int CahLua::call(int inCount, int outCount)
+{
+	lua_pcall(CahLua::L, inCount, outCount, 0);
 }

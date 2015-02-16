@@ -46,5 +46,8 @@
     <ClInclude Include="..\..\include\cahlua\LuaBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\cahlua\LuaExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

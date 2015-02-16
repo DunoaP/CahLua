@@ -7,6 +7,7 @@ CahLua::Script::Script(bool global, std::string filename)
 	envName = "_G";
 	this->global = global;
 	error = 0;
+	paramCount = 0;
 
 	if (filename != "")
 	{
@@ -15,6 +16,11 @@ CahLua::Script::Script(bool global, std::string filename)
 	}
 	++uid;
 }
+
+CahLua::Script::~Script()
+{
+}
+
 
 int CahLua::Script::load(std::string filename)
 {
@@ -67,10 +73,13 @@ int CahLua::Script::execute()
 		{
 			return 1;
 		}
-		error = callFunc("Start");	
+		error = CahLua::call(0, 0);
+		handleError();
+
+		error = call("Start");	
 	}
 	else {
-		error = lua_pcall(CahLua::L, 0, 0, 0);
+		error = CahLua::call(0, 0);	
 	}
 
 
@@ -78,7 +87,27 @@ int CahLua::Script::execute()
 	return error;
 }
 
-int CahLua::Script::callFunc(std::string funcName)
+int CahLua::Script::call(std::string funcName)
+{	
+	if (funcName != "")
+	{
+		if (!global)
+		{
+			lua_getglobal(CahLua::L, envName.c_str());
+			if (!lua_istable(CahLua::L, 1))
+			{
+				return 1;
+			}
+			lua_getfield(CahLua::L, -1, funcName.c_str());
+		}
+	}
+	error = CahLua::call(paramCount, 0);	
+	
+	paramCount = 0;
+	return error;
+}
+
+int CahLua::Script::getFunc(std::string funcName)
 {
 	if (!global)
 	{
@@ -88,8 +117,9 @@ int CahLua::Script::callFunc(std::string funcName)
 			return 1;
 		}
 		lua_getfield(CahLua::L, -1, funcName.c_str());
+		return 0;
 	}
-	return lua_pcall(CahLua::L, 0, 0, 0);
+	return 1;
 }
 
 
@@ -103,6 +133,7 @@ void CahLua::Script::handleError()
 	if (error > 0)
 	{
 		printf(lua_tostring(CahLua::L, -1), "\n");
+		lua_pop(CahLua::L, 1);
 	}
 	
 }
@@ -110,4 +141,34 @@ void CahLua::Script::handleError()
 std::string CahLua::Script::getEnvName()
 {
 	return envName;
+}
+
+
+void CahLua::Script::pushnumber(double v){
+	lua_pushnumber(L, v);
+	paramCount++;
+}
+
+double CahLua::Script::checknumber(int index){
+	return luaL_checknumber(L, index);
+}
+
+void CahLua::Script::pushstring(const char* s){
+	lua_pushstring(L, s);
+	paramCount++;
+}
+
+const char* CahLua::Script::checkstring(int index){
+	return luaL_checkstring(L, index);
+}
+
+void CahLua::Script::pushusertype(void* udata, const char* tname){
+	/*lua_pushlightuserdata(L, udata);
+	luaL_getmetatable(L, CahLua_MetaPointer);
+	lua_setmetatable(L, -2);*/
+}
+
+void* CahLua::Script::checkusertype(int index, const char* tname){
+	void* udata = lua_touserdata(L, index);
+	return udata;
 }

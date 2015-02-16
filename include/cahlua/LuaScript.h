@@ -13,15 +13,26 @@ namespace CahLua
 	{
 	public:
 		Script(bool global = true, std::string filename = "");
+		~Script();
 
 		int load(std::string);
 
 
 		int execute();
-		int callFunc(std::string funcName);
+		int getFunc(std::string funcName);
+		int call(std::string = "");
 
 		int getError();
 		std::string getEnvName();
+
+		
+
+		void pushnumber(double);
+		double checknumber(int);
+		void pushstring(const char*);
+		const char* checkstring(int);
+		void pushusertype(void*, const char*);
+		void* checkusertype(int, const char*);
 
 	private:
 		static int uid;
@@ -32,6 +43,8 @@ namespace CahLua
 		std::string envName;
 
 		void handleError();
+		unsigned short paramCount;
+
 	};
 }
 #endif

@@ -21,6 +21,7 @@
     <ClInclude Include="..\..\include\cahlua\CahLua.hpp" />
     <ClInclude Include="..\..\include\cahlua\LuaBase.h" />
     <ClInclude Include="..\..\include\cahlua\LuaClass.h" />
+    <ClInclude Include="..\..\include\cahlua\LuaExceptions.h" />
     <ClInclude Include="..\..\include\cahlua\LuaMetaPointer.h" />
     <ClInclude Include="..\..\include\cahlua\LuaScript.h" />
     <ClInclude Include="..\..\include\cahlua\LuaState.h" />
