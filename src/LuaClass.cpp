@@ -63,8 +63,8 @@ void CahLua::LuaClass::bind()
 	}
 
 
-	lua_rawgeti(CahLua::L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
-	lua_newtable(CahLua::L);
-	luaL_setfuncs(CahLua::L, flist, 0);
-	lua_setglobal(CahLua::L, className.c_str());
+	lua_rawgeti(CahLua::State::get(), LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS);
+	lua_newtable(CahLua::State::get());
+	luaL_setfuncs(CahLua::State::get(), flist, 0);
+	lua_setglobal(CahLua::State::get(), className.c_str());
 }

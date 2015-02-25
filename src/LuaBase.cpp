@@ -3,12 +3,12 @@
 
 bool CahLua::open()
 {
-	if (CahLua::L){
+	if (CahLua::State::get()){
 		return false;
 	}
-	CahLua::L = luaL_newstate();
-	if (CahLua::L){
-		luaopen_base(CahLua::L);
+	CahLua::State::create();
+	if (CahLua::State::get()){
+		luaopen_base(CahLua::State::get());
 		return true;
 	}
 	return false;
@@ -16,8 +16,6 @@ bool CahLua::open()
 
 void CahLua::close()
 {
-	if (CahLua::L)
-	{
-		lua_close(CahLua::L);
-	}
+	CahLua::State::destroy();
 }
+

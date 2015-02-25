@@ -4,10 +4,18 @@
 #include "lua/lua.hpp"
 
 namespace CahLua{
-	extern lua_State* L;
+	class State
+	{
+	public:
+		State();
+		~State();
 
-	lua_State* newThread(lua_State* parentState = nullptr);
-	int resumeThread(lua_State* thread);
-	int call(int inCount = 0, int outCount = 0);
+		static lua_State* get();
+		static bool create();
+		static void destroy();
+
+	private:
+		static lua_State* L;
+	};
 }
 #endif

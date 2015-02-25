@@ -1,24 +1,32 @@
 #include <LuaState.h>
 
-lua_State* CahLua::L = nullptr;
+lua_State* CahLua::State::L = nullptr;
 
 
-lua_State* CahLua::newThread(lua_State* parentState)
+CahLua::State::State()
 {
-	if (!parentState)
-	{
-		return lua_newthread(L);
+}
+
+CahLua::State::~State()
+{
+}
+
+bool CahLua::State::create()
+{
+	L = luaL_newstate();
+	if (L)
+	{ 
+		return true;
 	}
-	return lua_newthread(parentState);
+	return false;
+}
+
+void CahLua::State::destroy()
+{
+	lua_close(L);
 }
 
 
-int CahLua::resumeThread(lua_State* thread)
-{
-	return lua_resume(thread, NULL, 1);
-}
-
-int CahLua::call(int inCount, int outCount)
-{
-	lua_pcall(CahLua::L, inCount, outCount, 0);
+lua_State* CahLua::State::get(){
+	return L;
 }

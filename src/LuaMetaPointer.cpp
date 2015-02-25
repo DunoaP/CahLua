@@ -9,6 +9,7 @@ const luaL_Reg CahLua::MetaPointer::m_lmembers[] = { { NULL, NULL } };
 const luaL_Reg CahLua::MetaPointer::m_lfunctions[] =
 {
 	{ "__index", CahLua::MetaPointer::__index },
+	{ "__gc", CahLua::MetaPointer::__destroy },
 	{ "__newindex", CahLua::MetaPointer::__newindex },
 	{ NULL, NULL }
 };
@@ -17,7 +18,7 @@ const luaL_Reg CahLua::MetaPointer::m_lfunctions[] =
 CahLua::MetaPointer::MetaPointer() : m_name("")
 {
 	//-- Make sure we have created the metatable
-	initialize(CahLua::L);
+	initialize(CahLua::State::get());
 
 	//-- Add this pointer as of kind LUA_METAPOINTER metatable. This bit of code
 	//   might not be necessary here. (To be removed)
@@ -61,6 +62,25 @@ int CahLua::MetaPointer::__newindex(lua_State* L)
 	return p->set(L);
 }
 //-----------------------------------------------------------------------------
+
+int CahLua::MetaPointer::__destroy(lua_State* L)
+{
+	//-- Obtain the object that called us and call its set method
+	//   Since get and set are pure virtual, all inherited classes of LMetaPointer
+	//   must implement it, and, upon the call from here, the correct 'get' method
+	//   will be called.
+	MetaPointer* p = lua_checkmpointer(L);
+	if (p != nullptr)
+	{
+		//delete p;
+		return 1;
+	}
+	return 0;
+}
+//-----------------------------------------------------------------------------
+
+
+
 
 void CahLua::MetaPointer::initialize(lua_State* L)
 {

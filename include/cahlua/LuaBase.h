@@ -5,7 +5,6 @@
 #include "LuaState.h"
 
 namespace CahLua{
-
 	bool open();
 	void close();
 }

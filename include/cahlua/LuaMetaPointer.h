@@ -42,6 +42,7 @@ namespace CahLua
 
 			static int __index(lua_State* L);    //-- Shall be mapped to __index metamethod of the metatable for all lightuserdata pointers
 			static int __newindex(lua_State* L); //-- Shall be mapped to __newindex metamethod of the metatable for all lightuserdata pointers
+			static int __destroy(lua_State* L); //-- Shall be mapped to __newindex metamethod of the metatable for all lightuserdata pointers
 
 		
 	};
