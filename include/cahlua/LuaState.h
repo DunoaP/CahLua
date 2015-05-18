@@ -17,5 +17,14 @@ namespace CahLua{
 	private:
 		static lua_State* L;
 	};
+
+
+	void pushnumber(double);
+	double checknumber(int);
+	void pushstring(const char*);
+	const char* checkstring(int);
+	void pushusertype(void*, const char*);
+	void* checkusertype(int, const char*);
 }
+
 #endif

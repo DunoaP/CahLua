@@ -13,9 +13,9 @@ int main(){
 	f.testBool = true;
 	f.setGlobal("foo");
 
-	if (luaL_loadfile(CahLua::L, "basic_usage.lua") || lua_pcall(CahLua::L, 0, 0, 0))
+	if (luaL_loadfile(CahLua::State::get(), "basic_usage.lua") || lua_pcall(CahLua::State::get(), 0, 0, 0))
 	{
-		lua_tostring(CahLua::L, -1);
+		lua_tostring(CahLua::State::get(), -1);
 	}
 
 	CahLua::close();
