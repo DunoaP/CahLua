@@ -1,21 +1,5 @@
 *.sdf
-samples/Basic Usage/Debug/Basic Usage.log
-samples/Basic Usage/Release/Basic Usage.Build.CppClean.log
-samples/Basic Usage/Release/Basic Usage.log
-samples/Basic Usage/Debug/Basic Usage.log
-samples/Basic Usage/Release/Basic Usage.Build.CppClean.log
-samples/Basic Usage/Release/Basic Usage.log
-samples/Basic Usage/Basic Usage.sdf
-samples/Basic Usage/Basic Usage.opensdf
-samples/Basic Usage/Debug/Basic Usage.log
-samples/Basic Usage/Basic Usage.v12.suo
-*.sdf
-samples/Scripting Environments/Basic Usage.v12.suo
-samples/Scripting Environments/Basic Usage.opensdf
+*.opensdf
 *.log
-samples/Basic Usage/Release/Basic Usage.log
-samples/Basic Usage/Debug/Basic Usage.log
-samples/Basic Usage/Release/Basic Usage.log
-samples/Basic Usage/Release/Basic Usage.log
-samples/Basic Usage/Debug/Basic Usage.log
-samples/Basic Usage/Basic Usage.sdf
+*.vcxproj.filters
+*.vcxproj.user
